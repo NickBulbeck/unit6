@@ -16,6 +16,8 @@ const defaultUsers = [
 	'davemcfarland'
 	// 'naebdy' - cannae dae this at this stage, because there's no error handling yet. This will 
 	// crash the program. 
+
+	// https://teamtreehouse.com/nickbulbeck.json
 ]
 
 // Print message to the console

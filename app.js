@@ -15,7 +15,7 @@ const defaultUsers = [
 	'chalkers',
 	'davemcfarland'
 	// 'naebdy' - cannae dae this at this stage, because there's no error handling yet. This will 
-	// crash the program.
+	// crash the program. 
 ]
 
 // Print message to the console

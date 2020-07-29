@@ -21,8 +21,11 @@ const defaultUsers = [
 ]
 
 // Print message to the console
-function printMessage(username, badgeCount, point) {
-	const message = `${username} has ${badgeCount} badges and ${point} JavaScript points`;
+function printMessage(username, badgeCount, point,total) {
+	let message = `${username} has ${badgeCount} badges and ${point} JavaScript points`;
+	if (username === 'Nick Bulbeck') {
+		message += ` (${total} points in total)`;
+	}
 	console.log(message);
 }
 
@@ -46,7 +49,8 @@ function getProfile(username){
 			const name = userProfile.name; 					// Now, finally, we can use the
 			const badges = userProfile.badges.length;		// JSON schema from the Treehouse API.
 			const points = userProfile.points.JavaScript;	// (You'll notice that json.badges is an array.)
-			printMessage(name,badges,points); 
+			const total = userProfile.points.total;
+			printMessage(name,badges,points,total); 
 		})
 	});
 }

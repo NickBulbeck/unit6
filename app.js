@@ -14,10 +14,8 @@ const defaultUsers = [
 	'nickbulbeck',
 	'chalkers',
 	'davemcfarland'
-	// 'naebdy' - cannae dae this at this stage, because there's no error handling yet. This will 
+	// 'naebdy' // - cannae dae this at this stage, because there's no error handling yet. This will 
 	// crash the program. 
-
-	// https://teamtreehouse.com/nickbulbeck.json
 ]
 
 // Print message to the console
@@ -31,7 +29,7 @@ function printMessage(username, badgeCount, point,total) {
 
 function getProfile(username){
 // Connect to the API url https://teamtreehouse.com/${username}.json
-	https.get(`https://teamtreehouse.com/${username}.json`, (response) => {
+	const request = https.get(`https://teamtreehouse.com/${username}.json`, (response) => {
 		let body = "";
 		// looking that the Node docs, you see that there's a 'data' event which returns the body
 		// of the data. Which is in buffer form; so you need to stringify it to read it at all...
@@ -52,8 +50,14 @@ function getProfile(username){
 			const total = userProfile.points.total;
 			printMessage(name,badges,points,total); 
 		})
-	});
-}
+	}); 
+  // Next: there are various event properties associated with a request, and 'error' is one.
+  // This error is fired if the HTTP request fails.
+  request.on('error', error => (console.error(error.message))); // nothing wrong with console.log,
+}                                                               // but console.error shows up in
+                                                                // colour in some terminals.
+
+
 
 // users.forEach(user => getProfile(user));
 // USEFUL NOTE ON ARROW-FUNCTION CALLBACKS
@@ -76,11 +80,21 @@ function getProfile(username){
 // node app.js nickbulbeck chalkers // etc. 
 // Remember - these are command-line arguments. They don't go in quotes or brackets. Like ls -al
 
+// NOW: request.on('error'...) works if the request fails. But if (e.g.) we pass in a malformed url, node 
+// itself creates an error. This needs try/catch.
+const tryProfile = (username) => {
+  try {
+    getProfile(username);
+  } catch(error) { // again, if you fall into the catch-block, the error object is passed in automatically
+    console.log(error.message);
+  }
+}
+
 const inputUsers = process.argv.slice(2);
 if (inputUsers[0]) {
-	inputUsers.forEach(getProfile);
+	inputUsers.forEach(tryProfile); 
 	} else {
-		defaultUsers.forEach(getProfile);0	
-	}
+		defaultUsers.forEach(tryProfile);
+}
 
 

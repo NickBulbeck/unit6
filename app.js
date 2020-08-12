@@ -8,7 +8,8 @@
 // the docs for https are at
 // https://nodejs.org/dist/latest-v12.x/docs/api/https.html#https_https_get_options_callback
 const https = require('https');
-const testname = 'alenaholligan';
+const http = require('http'); // for the statusCode object
+const profile = require('./profile.js') // note the directory in the pathname. The .js is optional, BTW.
 const defaultUsers = [
 	'alenaholligan',
 	'nickbulbeck',
@@ -27,36 +28,12 @@ function printMessage(username, badgeCount, point,total) {
 	console.log(message);
 }
 
-function getProfile(username){
-// Connect to the API url https://teamtreehouse.com/${username}.json
-	const request = https.get(`https://teamtreehouse.com/${username}.json`, (response) => {
-		let body = "";
-		// looking that the Node docs, you see that there's a 'data' event which returns the body
-		// of the data. Which is in buffer form; so you need to stringify it to read it at all...
-		response.on('data', (data) => { // the second 'data' is like 'event' - it's created automatically
-			body += data.toString();
-			// console.log('Latest bit of data: ', data); // This usually prints out 5 times so far
-		})
-		// But there's a pitfall here, which is that a buffer isn't necessarily the COMPLETE body of
-		// the response; it comes in packets. So the above function will run several times and display
-		// a packet of data each time. In general, if you try and parse it to JSON it won't work. You
-		// have to wait until the 'end' event - bit like onReadyStateChange going from 3 to 4 in an
-		// xmlHTTPrequest object.
-		response.on('end', () => { // at this point, the above function has run as many times as it needs
-			const userProfile = JSON.parse(body); 		// to, and 'body' is complete.
-			const name = userProfile.name; 					// Now, finally, we can use the
-			const badges = userProfile.badges.length;		// JSON schema from the Treehouse API.
-			const points = userProfile.points.JavaScript;	// (You'll notice that json.badges is an array.)
-			const total = userProfile.points.total;
-			printMessage(name,badges,points,total); 
-		})
-	}); 
-  // Next: there are various event properties associated with a request, and 'error' is one.
-  // This error is fired if the HTTP request fails.
-  request.on('error', error => (console.error(error.message))); // nothing wrong with console.log,
-}                                                               // but console.error shows up in
-                                                                // colour in some terminals.
+function printError(error) {
+  console.log(`An error occured: ${error.message}`);
+}
 
+
+// in here, originally, was the getProfile() function. It's in profile.js.
 
 
 // users.forEach(user => getProfile(user));
@@ -84,9 +61,9 @@ function getProfile(username){
 // itself creates an error. This needs try/catch.
 const tryProfile = (username) => {
   try {
-    getProfile(username);
+    profile.getProfile(username); // note the reference to the ./profile.js module
   } catch(error) { // again, if you fall into the catch-block, the error object is passed in automatically
-    console.log(error.message);
+    printError(error);
   }
 }
 

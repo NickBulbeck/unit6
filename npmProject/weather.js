@@ -1,1 +1,0 @@
-// Retrieve the data and log out the body of the response

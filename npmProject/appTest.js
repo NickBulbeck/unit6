@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 
-// expect(true).to.be.true;
+const app = require('./app');
+const dataAccess = require('./dataAccess');
 
 
 // const titleCase = (title) => {
@@ -19,4 +20,8 @@ const expect = require('chai').expect;
 
 // expect(titleCase('the great mouse detective')).to.equal('The Great Mouse Detective');
 
-console.log("appTest.js is working! (Or, actually, *npm test* is working!)");
+// Call the main function in app.js
+
+expect(app.handleWeatherRequest()).to.be.a('string');
+
+console.log("appTest.js successfully completed from 'npm test' command");

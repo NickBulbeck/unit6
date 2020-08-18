@@ -1,8 +1,8 @@
 const http = require('http');
 
 const keys = {
-  weatherAPI: '51e8dd47214b4288b54113849201808',
-  openWeatherMap: '732b7c1bea856b777f79f775aee0c337'
+  weatherAPI: 'secret',
+  openWeatherMap: 'secret'
 }
 
 const printError = (error) => {
@@ -35,7 +35,9 @@ const getData = (location) => {
       console.log(`Bother ensued while getting weather for ${location}: ${http.STATUS_CODES[response.statusCode]}.`)
     }
   });
-  request.on('error', error => printError(error));
+  request.on('error', error => printError(error)); // there are more error codes in the api; might
+                                                   // be better to put try/catch around the request, because if
+                                                   // the url is malformed, an error will be thrown immediately.
 }
 
 

@@ -1,0 +1,26 @@
+{
+  "name": "npmproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "node appTest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NickBulbeck/unit6.git"
+  },
+  "keywords": [
+    "wee",
+    "exercise"
+  ],
+  "author": "Nick Bulbeck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NickBulbeck/unit6/issues"
+  },
+  "homepage": "https://github.com/NickBulbeck/unit6#readme",
+  "dependencies": {
+    "chai": "^4.2.0"
+  }
+}

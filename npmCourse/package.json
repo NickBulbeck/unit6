@@ -1,0 +1,17 @@
+{
+  "name": "npmcourse",
+  "version": "1.0.0",
+  "description": "bcrypt_fun",
+  "main": "bcrypt.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "keywords": [
+    "fun"
+  ],
+  "author": "Nick Bulbeck",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0"
+  }
+}

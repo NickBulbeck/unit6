@@ -17,4 +17,3 @@ const handleWeatherRequest = () => {
 handleWeatherRequest();
 
 module.exports.handleWeatherRequest = handleWeatherRequest;
-
